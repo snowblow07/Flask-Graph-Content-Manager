@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .session {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .session h2 {
+            margin-top: 0;
+        }
+        .history {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sessions</h1>
+    {% for session in sessions %}
+        <div class="session">
+            <h2>Session: {{ session.n.properties.name }}</h2>
+            {% if session.n.properties.latest_ip and session.n.properties.latest_timestamp %}
+                IP: {{ session.n.properties.latest_ip }}, Time: {{ session.n.properties.latest_timestamp }}
+            {% endif %}
+            <a href="session/{{ session.n.identity }}">View Details</a>
+        </div>
+    {% endfor %}
+</body>
+</html>

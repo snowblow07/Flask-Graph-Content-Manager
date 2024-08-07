@@ -1,0 +1,1 @@
+from .sitemap import sitemap_bp

@@ -1,0 +1,1 @@
+from .views import content_bp

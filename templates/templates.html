@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Nodes</title>
+</head>
+<body>
+    <H1>Template Nodes</H1>
+    <ul>
+        {% for template in templates %} 
+        <li>
+            Name: {{ template['name'] }} - <a href="/{{ template['name'] }}"> Preview</a>
+            <a href="/blog/update/{{ template.id}}">Update</a>
+            <a href="/blog/delete/{{ template.id}}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/blog/create">Create New Template</a>    
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Welcome to the Home Page</h1>
+    {% if session.username %}
+      <p>Hello, {{ session.username }}!</p>
+      <a href="{{ url_for('auth.logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('auth.login') }}">Login</a>
+    {% endif %}
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .session {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .session h2 {
+            margin-top: 0;
+        }
+        .history {
+            margin-left: 20px;
+        }
+        .timestamp {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .details {
+            font-size: 0.9em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Session Details</h1>
+    <div class="session">
+        <h2>Session: {{ session.properties.name }}</h2>
+        <div class="history">
+            <h3>History:</h3>
+            <ul>
+                {% for entry in session.properties.history %}
+                    <li>
+                        <strong>{{ entry['type'] }}:</strong> {{ entry['content'] }}<br>IP: {{ entry['ip'] }} {{ entry['formatted_timestamp'] }}
+                    </li><br>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <a href="/sessions_management/">Back to Sessions</a>
+</body>
+</html>
