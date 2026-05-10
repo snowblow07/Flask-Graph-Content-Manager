@@ -12,18 +12,17 @@ bcrypt = Bcrypt()
 def admin():
     return render_template('admin.html')
 
-#@auth_bp.route('/register', methods=['GET', 'POST'])
-#@models.check_logged_in
-#def register():
-#    driver = current_app.config["neo4j_driver"]
-#    if request.method == 'POST':
-#        username = request.form['username']
-#        email = request.form['email']
-#        password = request.form['password']
-#        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-#        if models.create_user(driver, username, email, hashed_password):
-#            return redirect(url_for('auth.admin'))  # Ensure 'admin' endpoint exists
-#    return render_template('register.html')
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    driver = current_app.config["neo4j_driver"]
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form.get('email', '') # Optional email
+        password = request.form['password']
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        if models.create_user(driver, username, email, hashed_password):
+            return redirect(url_for('auth.login'))  # Redirect to login after register
+    return render_template('register.html')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 @models.check_logged_in

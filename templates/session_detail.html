@@ -1,51 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .session {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-        .session h2 {
-            margin-top: 0;
-        }
-        .history {
-            margin-left: 20px;
-        }
-        .timestamp {
-            font-size: 0.9em;
-            color: #555;
-        }
-        .details {
-            font-size: 0.9em;
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-    <h1>Session Details</h1>
-    <div class="session">
-        <h2>Session: {{ session.properties.name }}</h2>
-        <div class="history">
-            <h3>History:</h3>
-            <ul>
-                {% for entry in session.properties.history %}
-                    <li>
-                        <strong>{{ entry['type'] }}:</strong> {{ entry['content'] }}<br>IP: {{ entry['ip'] }} {{ entry['formatted_timestamp'] }}
-                    </li><br>
-                {% endfor %}
-            </ul>
+{% extends "layout.html" %}
+
+{% block title %}Session Details - GraphManager{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('sessions_management.index') }}">Sessions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm position-sticky" style="top: 100px;">
+            <div class="card-body p-4 text-center">
+                <div class="bg-accent-soft d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-user-shield text-primary fa-2x"></i>
+                </div>
+                <h2 class="h4 mb-1">{{ tracked_session.properties.name or 'Anonymous Session' }}</h2>
+                <p class="text-muted small mb-4">Session ID: <code class="bg-light px-2 rounded">{{ tracked_session.identity }}</code></p>
+                
+                <hr class="my-4 opacity-25">
+                
+                <div class="text-start">
+                    <h6 class="text-uppercase text-muted fw-bold small mb-3">Session Metadata</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Total Events:</span>
+                        <span class="fw-semibold small">{{ tracked_session.properties.history|length }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted small">Status:</span>
+                        <span class="badge bg-success-soft text-success small">Active</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-light border-0 p-3">
+                <a href="{{ url_for('sessions_management.index') }}" class="btn btn-outline-secondary w-100 btn-sm">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Sessions
+                </a>
+            </div>
         </div>
     </div>
-    <a href="/sessions_management/">Back to Sessions</a>
-</body>
-</html>
+    
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3 border-0">
+                <h5 class="mb-0">Activity History</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    {% for entry in tracked_session.properties.history|reverse %}
+                    <div class="list-group-item p-4">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-light p-2 rounded-circle text-center" style="width: 40px; height: 40px;">
+                                    {% if entry['type'] == 'navigation' %}
+                                        <i class="fas fa-mouse-pointer text-info small"></i>
+                                    {% elif entry['type'] == 'action' %}
+                                        <i class="fas fa-bolt text-warning small"></i>
+                                    {% else %}
+                                        <i class="fas fa-info-circle text-secondary small"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-start mb-1">
+                                    <h6 class="mb-0 fw-bold">{{ entry['type']|capitalize }} Event</h6>
+                                    <span class="text-muted small">{{ entry['formatted_timestamp'] }}</span>
+                                </div>
+                                <p class="text-muted small mb-2 bg-light p-2 rounded border-start border-primary border-3">{{ entry['content'] }}</p>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-muted me-2 small"></i>
+                                    <span class="text-muted extra-small">IP Address: {{ entry['ip'] }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <p class="text-muted">No activity history available for this session.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .extra-small { font-size: 0.75rem; }
+    .bg-success-soft { background-color: rgba(16, 185, 129, 0.1); }
+</style>
+{% endblock %}

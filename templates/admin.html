@@ -1,17 +1,73 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home</title>
-  </head>
-  <body>
-    <h1>Welcome to the Home Page</h1>
-    {% if session.username %}
-      <p>Hello, {{ session.username }}!</p>
-      <a href="{{ url_for('auth.logout') }}">Logout</a>
-    {% else %}
-      <a href="{{ url_for('auth.login') }}">Login</a>
-    {% endif %}
-  </body>
-</html>
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - GraphManager{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <div class="card border-0 bg-primary text-white shadow-lg overflow-hidden">
+            <div class="card-body p-5 position-relative">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="display-6 fw-bold mb-2">Welcome back, {{ session.username }}!</h1>
+                        <p class="lead mb-0 opacity-75">Manage your graph-based content and monitor user sessions from your central dashboard.</p>
+                    </div>
+                    <div class="col-md-4 text-center d-none d-md-block">
+                        <i class="fas fa-network-wired fa-5x opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm border-bottom border-primary border-4">
+            <div class="card-body">
+                <div class="dashboard-card-icon bg-accent-soft text-primary">
+                    <i class="fas fa-layer-group fa-lg"></i>
+                </div>
+                <h5 class="card-title">Template Nodes</h5>
+                <p class="text-muted small">Create and manage your graph-based content templates with a powerful code editor.</p>
+                <a href="{{ url_for('blog.get_templates') }}" class="btn btn-sm btn-primary">
+                    Manage Templates <i class="fas fa-arrow-right ms-2 small"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm border-bottom border-info border-4">
+            <div class="card-body">
+                <div class="dashboard-card-icon bg-info-soft text-info">
+                    <i class="fas fa-chart-line fa-lg"></i>
+                </div>
+                <h5 class="card-title">Session Tracking</h5>
+                <p class="text-muted small">Monitor real-time user activity and navigation history across your platform.</p>
+                <a href="{{ url_for('sessions_management.index') }}" class="btn btn-sm btn-info text-white">
+                    View Sessions <i class="fas fa-arrow-right ms-2 small"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm border-bottom border-success border-4">
+            <div class="card-body">
+                <div class="dashboard-card-icon bg-success-soft text-success">
+                    <i class="fas fa-plus-circle fa-lg"></i>
+                </div>
+                <h5 class="card-title">Quick Actions</h5>
+                <p class="text-muted small">Jump straight into creating a new content node for your graph database.</p>
+                <a href="{{ url_for('blog.create_node') }}" class="btn btn-sm btn-success text-white">
+                    Create New Node <i class="fas fa-plus ms-2 small"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-info-soft { background-color: rgba(14, 165, 233, 0.1) !important; }
+    .bg-success-soft { background-color: rgba(16, 185, 129, 0.1) !important; }
+</style>
+{% endblock %}
