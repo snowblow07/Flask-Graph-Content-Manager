@@ -6,9 +6,12 @@ db_bp = Blueprint("database", __name__)
 
 #Neo4j database configuration
 def init_db(app):
-    NEO4J_URI = "neo4j+ssc://<your-db-id>.databases.neo4j.io"
+#    NEO4J_URI = "neo4j+ssc://<your-db-id>.databases.neo4j.io"
+#    NEO4J_USER = "neo4j"
+#    NEO4J_PASSWORD = "<your-password>"
+    NEO4J_URI = "neo4j+ssc://fce8171d.databases.neo4j.io"
     NEO4J_USER = "neo4j"
-    NEO4J_PASSWORD = "<your-password>"
+    NEO4J_PASSWORD = "CLuVaYF97Has1lyNERoNpY3SY1AnjF2cTnwO46-MDuM"
 
 #Neo4j local database configuration
 #def init_db(app):

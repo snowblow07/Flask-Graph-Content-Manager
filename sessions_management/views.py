@@ -109,4 +109,4 @@ def index():
 @login_required
 def session_details(identity):
     session_details = get_session_details(identity)
-    return render_template('session_detail.html', session=session_details)
+    return render_template('session_detail.html', tracked_session=session_details)

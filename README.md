@@ -1,73 +1,84 @@
 # Flask-Graph-Content-Manager
 
-A modular Flask application designed to manage AI agent sessions and dynamic content using the power of Neo4j graph databases. This project serves as a foundation for a modern, headless CMS with integrated AI interaction monitoring.
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Tech Stack](https://img.shields.io/badge/stack-Flask%20%7C%20Neo4j%20%7C%20Python-orange)
 
-## 🚀 Overview
+## Overview
+**Flask-Graph-Content-Manager** is a modular, high-performance Content Management System (CMS) and AI session monitoring dashboard. Built on the Flask framework and powered by the Neo4j graph database, it provides a sophisticated interface for managing dynamic content, tracking user interactions, and analyzing SEO performance. It serves as the administrative backbone for the OmniGraph ecosystem.
 
-Flask-Graph-Content-Manager provides a centralized dashboard for tracking AI agent interactions and managing website content dynamically. By leveraging Neo4j, it maps complex relationships between domains, templates, and user sessions, offering a high-level view of how content is served and consumed.
+## System Architecture
+To understand how this manager interacts with the broader ecosystem (including the iOS client and the LangChain middleware), refer to the architecture below:
 
-## ✨ Key Features
+![System Architecture](docs/assets/system_architecture.jpg)
+*Figure 1: High-level architecture of the OmniGraph Ecosystem.*
 
-### 🤖 AI Session Monitoring
-*   **Session Listing**: View all active and historical sessions from AI agents.
-*   **Interaction History**: Dive deep into individual sessions to view full chat history, including prompts, responses, and metadata.
-*   **Real-time Tracking**: Monitor IP addresses and timestamps for the latest interactions.
+## The Ecosystem Context
+This repository is a critical component of a unified AI and RAG (Retrieval-Augmented Generation) ecosystem. While the **OmniGraph-Client-API** handles the intelligence orchestration and the **ChatBot-iOS-Application** provides the user interface, the **Flask-Graph-Content-Manager** acts as the control plane. It allows administrators to:
+- **Monitor real-time AI sessions** and visitor paths stored in Neo4j.
+- **Manage the knowledge base** and blog content that fuels the RAG pipeline.
+- **Oversee the health** and security of the entire graph-based network.
 
-### 📄 Graph-Based Content Management
-*   **Domain-Specific Templates**: Content is organized by domain nodes, allowing for multi-tenant configurations.
-*   **Dynamic Rendering**: Templates are fetched directly from Neo4j and rendered on-the-fly, enabling instant content updates without redeploying.
-*   **SEO Management**: Integrated fields for Sitemap parameters (priority, change frequency, etc.) directly on content nodes.
+## Interface Preview
+| Session Dashboard | Activity Detail View |
+| :--- | :--- |
+| ![System Dashboard](docs/assets/Flask-Graph-Content-Manager-dashboard.png) | ![Session Detail](docs/assets/Flask-Graph-Content-Manager-session.png) |
+| *Admin view showing active AI sessions.* | *Deep dive into specific Human-AI interactions.* |
 
-### 🔒 Security & Scale
-*   **Secure Authentication**: Protected routes using `Flask-Bcrypt` for password hashing and session-based access control.
-*   **Blueprint Architecture**: Modular design for easy maintenance and feature expansion.
+## Key Features
+- **Graph-Based Data Modeling:** Leverages Neo4j for complex relationship mapping between content, users, and AI sessions.
+- **AI Session Monitoring:** Dedicated module for tracking and visualizing interactions between visitors and the AI agent.
+- **Robust Authentication:** Secure user management using Flask-Bcrypt and WTForms.
+- **SEO & Content Tools:** Integrated SEO analyzer and readability metrics to ensure high-quality content generation.
+- **Modular Blueprint Architecture:** Easily extensible structure with separate modules for Auth, Blog, Content, and Database.
+- **Automated Sitemap Generation:** Dynamic sitemap creation for optimized search engine indexing.
 
-## 🛠️ Tech Stack
+## Tech Stack
+- **Backend:** Flask, Python 3.x
+- **Database:** Neo4j (Graph Database)
+- **Authentication:** Flask-Bcrypt, Flask-WTF
+- **Content Tools:** BeautifulSoup4, NLTK, PySEOAnalyzer
+- **Templating:** Jinja2, HTML5, CSS3
 
-*   **Backend**: Python, [Flask](https://flask.palletsprojects.com/)
-*   **Database**: [Neo4j](https://neo4j.com/) (Graph Database)
-*   **Security**: Flask-Bcrypt
-*   **Frontend**: Jinja2 Templates, Vanilla CSS
+## Getting Started
 
-## ⚙️ Installation & Setup
+### Local Setup
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/Flask-Graph-Content-Manager.git
+   cd Flask-Graph-Content-Manager
+   ```
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/snowblow07/Flask-Graph-Content-Manager.git
-    cd Flask-Graph-Content-Manager
-    ```
+2. **Create a virtual environment:**
+   ```bash
+   python -m venv .venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-2.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3.  **Configure Environment:**
-    Update `database/db.py` with your Neo4j credentials:
-    ```python
-    NEO4J_URI = "neo4j+ssc://your-db-id.databases.neo4j.io"
-    NEO4J_USER = "neo4j"
-    NEO4J_PASSWORD = "your-password"
-    ```
+4. **Environment Variables:**
+   Create a `.env` file or export the following:
+   ```bash
+   SECRET_KEY=your_secret_key
+   NEO4J_URI=bolt://localhost:7687
+   NEO4J_USER=neo4j
+   NEO4J_PASSWORD=your_password
+   ```
 
-4.  **Run the application:**
-    ```bash
-    python app.py
-    ```
-    The app will be available at `http://localhost:5050`.
+5. **Run the application:**
+   ```bash
+   python app.py
+   ```
+   The app will be available at `http://localhost:5050`.
 
-## 🗺️ Roadmap (Next Steps)
+## Usage / API Reference
+- **Admin Dashboard:** Access via `/database` to manage graph nodes.
+- **Session Monitor:** Navigate to `/sessions_management` to view live AI interactions.
+- **Blog Management:** Use the `/blog` endpoints to create and update content.
 
-*   [ ] **Full Headless CMS Integration**: Implementation of structured API endpoints for external content consumption.
-*   [ ] **Rich Text Editor**: Integration of a GUI for template editing within the admin dashboard.
-*   [ ] **Advanced Analytics**: Deeper insights into AI session patterns and content performance.
-
-## 👤 Author
-
-**Manuel Rosero Puente**
-*   Email: [manuel.rosero@sheengreen.com](mailto:manuel.rosero@sheengreen.com)
-*   GitHub: [ManuelRosero](https://github.com/snowblow07)
-
-## 📄 License
-
-This project is for portfolio purposes. Please contact the author for licensing inquiries.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
