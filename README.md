@@ -45,14 +45,14 @@ This repository is a critical component of a unified AI and RAG (Retrieval-Augme
 ### Local Setup
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/Flask-Graph-Content-Manager.git
+   git clone https://github.com/snowblow07/Flask-Graph-Content-Manager.git
    cd Flask-Graph-Content-Manager
    ```
 
 2. **Create a virtual environment:**
    ```bash
    python -m venv .venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
 3. **Install dependencies:**
